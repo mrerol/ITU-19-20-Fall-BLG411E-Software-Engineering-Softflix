@@ -38,7 +38,8 @@ def initialize(url):
 
 def db_init():
     url = config.DATABASE_URL
-    if url is None and config.DB_INIT_FLAG:
+    if url is None:
         print("Usage: DATABASE_URL=url python dbinit.py", file=sys.stderr)
         sys.exit(1)
-    initialize(url)
+    if config.DB_INIT_FLAG:
+        initialize(url)
