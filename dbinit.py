@@ -15,7 +15,6 @@ INIT_STATEMENTS = [
         password VARCHAR (50) NOT NULL,
         name VARCHAR (50) NOT NULL,
         surname VARCHAR (50) NOT NULL,
-        phone VARCHAR (15) NOT NULL,
         gender VARCHAR (1) NOT NULL,
         address VARCHAR (250) NOT NULL,
         last_login TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
