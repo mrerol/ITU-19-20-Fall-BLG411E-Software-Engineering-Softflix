@@ -9,17 +9,18 @@ INIT_STATEMENTS = [
 
     """CREATE TABLE IF NOT EXISTS users 
     (
-        user_id SERIAL NOT NULL PRIMARY KEY,
-        user_name VARCHAR(15) UNIQUE NOT NULL,
-        email VARCHAR (50) NOT NULL,
-        password VARCHAR (50) NOT NULL,
-        name VARCHAR (50) NOT NULL,
-        surname VARCHAR (50) NOT NULL,
-        gender VARCHAR (1) NOT NULL,
-        address VARCHAR (250) NOT NULL,
-        last_login TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        register_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-        is_admin BOOLEAN NOT NULL DEFAULT FALSE
+        user_id SERIAL PRIMARY KEY,
+        username text NOT NULL,
+        password text NOT NULL,
+        fullname text NOT NULL,
+        last_login timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+        email text NOT NULL CHECK (email ~~ '%@%.%'::text),
+        phone text,
+        gender text,
+        address text,
+        register_time timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        paid boolean NOT NULL DEFAULT false
+
     )"""
 
 
