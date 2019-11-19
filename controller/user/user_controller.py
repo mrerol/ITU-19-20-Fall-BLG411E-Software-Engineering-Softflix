@@ -16,12 +16,19 @@ def login():
 def login_checker(request):
     username = request.form['username']
     password = request.form['password']
-    user_id = user_database.user.get_user_id(username, password)
+    salted_pass = password + config.password_salt
+    hashed_pass = hashlib.md5(salted_pass.encode())
+    hashed_password = hashed_pass.hexdigest()
+    user_id = user_database.user.get_user_id(username, hashed_password)
+    print('user_id', user_id)
     if user_id is None:
         return "0"
     else:
-        session['user_id'] = user_id
-        return "1"
+        user = user_database.user.get_user(user_id)
+        if user['user'].is_activated:
+            return "1"
+        else:
+            return "-1"
 
 
 def register():
@@ -58,6 +65,27 @@ def validate_email(request):
         return "1"
     else:
         return "0"
+
+
+def send_activation_mail(request):
+    username = request.form['username']
+    email = user_database.user.get_email_with_username(username)
+    if email is None:
+        return "0"
+
+    activation = user_database.user.get_activation_with_email(email[0])
+    if activation is None:
+        return "0"
+    else:
+        message = """<br>"""
+        message += """<strong>Welcome to SoftFlix</strong><br>"""
+        message += """<p>Please click the below link to activate your account</p>"""
+        message += """<a href='http://127.0.0.1:5000/activate/""" + activation[0] + """'>Activate</a>"""
+        res = mail_sender.send_activation_email("SoftFlix - Activation", message, email[0])
+        if res == -1:
+            return "0"
+        else:
+            return "1"
 
 
 def register_checker(request):

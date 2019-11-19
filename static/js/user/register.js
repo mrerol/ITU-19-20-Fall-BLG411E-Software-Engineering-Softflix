@@ -34,13 +34,13 @@ function email_checker(){
             type: "POST",
             url: "softflix.api.validate_email"
         }).done(function (data) {
-            if (data === "1"){
+            if (data == "1"){
                 document.getElementById("email").style.borderColor = "green";
                 $("#invalid-email").css('display','none');
                 $("#invalid-email-format").css('display','none');
                 return true;
             }
-            else if (data === "-1"){
+            else if (data == "-1"){
                 document.getElementById("email").style.borderColor = "red";
                 $("#invalid-email-format").css('display','block');
                 $("#invalid-email").css('display','none');

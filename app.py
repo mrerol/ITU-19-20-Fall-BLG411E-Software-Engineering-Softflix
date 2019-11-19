@@ -7,7 +7,6 @@ app = Flask(__name__)
 mail = Mail(app)
 
 
-
 @app.route('/')
 def hello_world():
     return 'Hello World!'
@@ -33,9 +32,15 @@ def softflix_api_validate_email():
     return controller.user.user_controller.validate_email(request)
 
 
+@app.route('/softflix.api.send_activate_email', methods=['POST'])
+def softflix_send_activation_email():
+    return controller.user.user_controller.send_activation_mail(request)
+
+
 @app.route('/softflix.api.register', methods=['POST'])
 def softflix_api_register():
     return controller.user.user_controller.register_checker(request)
+
 
 @app.route('/register')
 def register():

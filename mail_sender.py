@@ -21,3 +21,4 @@ def send_activation_email(subject, message, to):
     except Exception as e:
         print('Mail Send Failed')
         print(e)
+        return -1

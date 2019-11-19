@@ -45,12 +45,40 @@ function add() {
                 });
                 // document.getElementById("loginform").submit()
             }
-            else{
+            else if(data == "0"){
                 $("#invalid-pass").toggle(750, function () {
                     setTimeout(function () {
                         $("#invalid-pass").toggle(750);
                         }, 2500);
                 });
+            }
+            else if(data == "-1"){
+                // window.alert("You need to activate your account with email.")
+                if (confirm("You need to activate your account with email.\n" +
+                    "Do you want to get another mail?")) {
+                    $.ajax({
+                        data : {
+                        username: $('#login-username').val()
+                        },
+                        type: "POST",
+                        url: "softflix.api.send_activate_email"
+                    }).done(function (data) {
+                        if (data == "1"){
+                            window.alert("Mail is successfully send, please check your mails");
+                            location.reload();
+                        }
+                        else if (data == "0"){
+                            window.alert("Mail cannot be send, please try again later");
+                            location.reload();
+                        }
+
+                })
+
+
+
+                } else {
+                    location.reload();
+                }
             }
 
         })

@@ -71,3 +71,38 @@ class user_database:
                 user_id = cursor.fetchone()
                 cursor.close()
             return user_id
+
+        def get_user(self, user_id):
+            temp_user = dict()
+            temp_user['user_id'] = user_id
+            _user = None
+            with dbapi2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                cursor.execute("SELECT * FROM users WHERE (users.user_id = %s)",
+                               (user_id, ))
+                user = cursor.fetchone()
+                _user = User(username=user[1], password=user[2], fullname=user[3], last_login=user[4], email=user[5],
+                             gender=user[6], address=user[7], register_time=user[8], paid=user[9], photo=user[10],
+                             is_admin=user[11], is_activated=user[12], activation=user[13])
+                temp_user['user'] = _user
+                cursor.close()
+            return temp_user
+
+        def get_activation_with_email(self, email):
+            with dbapi2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                statement = "SELECT activation FROM users WHERE (users.email = '" + email + "')"
+                cursor.execute(statement)
+                activation = cursor.fetchone()
+                cursor.close()
+            return activation
+
+        def get_email_with_username(self, username):
+            with dbapi2.connect(self.url) as connection:
+                cursor = connection.cursor()
+                statement = "SELECT email FROM users WHERE (users.username = '" + username + "')"
+                cursor.execute(statement)
+                email = cursor.fetchone()
+                cursor.close()
+            return email
+
