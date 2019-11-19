@@ -6,3 +6,7 @@ DATABASE_URL = 'postgres://kalcitdkfyeevw:39cdcacf84047dc48c74f58064a25a7406bd36
 
 # if you want to init db again
 DB_INIT_FLAG = False
+
+SECRET_KEY = "xilfsoft"
+SECURITY_PASSWORD_SALT = "apo70"
+password_salt = "apo104"

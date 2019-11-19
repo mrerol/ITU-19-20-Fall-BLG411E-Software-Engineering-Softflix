@@ -35,7 +35,7 @@ function add() {
                 password: $('#login-password').val()
             },
             type: "POST",
-            url: "softflix/api/login"
+            url: "softflix.api.login"
         }).done(function (data) {
             if (data == "1"){
                 $("#correct").toggle(750, function () {

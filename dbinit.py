@@ -15,13 +15,14 @@ INIT_STATEMENTS = [
         fullname text NOT NULL,
         last_login timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
         email text NOT NULL UNIQUE CHECK (email ~~ '%@%.%'::text),
-        phone text,
         gender text,
         address text,
         register_time timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
         paid boolean NOT NULL DEFAULT false,
-        logo BYTEA,
-        is_admin boolean NOT NULL DEFAULT false
+        photo BYTEA,
+        is_admin boolean NOT NULL DEFAULT false,
+        is_activated boolean NOT NULL DEFAULT false,
+        activation text NOT NULL UNIQUE
 
     )"""
 
