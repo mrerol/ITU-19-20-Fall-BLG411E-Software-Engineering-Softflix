@@ -5,7 +5,7 @@ import psycopg2 as dbapi2
 
 INIT_STATEMENTS = [
 
-    """DROP TABLE IF EXISTS users cascade """,
+    """DROP TABLE IF EXISTS users cascade""",
 
     """CREATE TABLE IF NOT EXISTS users 
     (
@@ -24,6 +24,30 @@ INIT_STATEMENTS = [
         is_activated boolean NOT NULL DEFAULT false,
         activation text NOT NULL UNIQUE
 
+    )""",
+
+    """CREATE TABLE movie (
+        movie_id SERIAL PRIMARY KEY,
+        poster_url text,
+        overview text,
+        release_date time without time zone,
+        movie_api_id integer,
+        title text,
+        backdrop_path text,
+        popularity double precision,
+        vote_count text,
+        vote_average double precision,
+        original_language character varying(5)
+    )""",
+
+    """CREATE TABLE genre (
+        genre_id SERIAL PRIMARY KEY,
+        genre character varying(25) NOT NULL
+    )""",
+
+    """CREATE TABLE movies_genre (
+        movie_id integer REFERENCES movie(movie_id),
+        genre_id integer REFERENCES genre(genre_id)
     )"""
 
 
